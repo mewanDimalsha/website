@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Table</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .table-container {
+            margin: 20px auto;
+            max-width: 1200px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow-x: auto; /* Horizontal scroll bar */
+            overflow-y: auto; /* Vertical scroll bar */
+            max-height: 500px; /* Adjust height as needed */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: center;
+        }
+
+        th {
+            background-color:#0361AB;
+            color: white;
+        }
+
+        thead th {
+            font-size: 16px;
+        }
+
+        tbody td {
+            font-size: 14px;
+        }
+
+        .date-row th {
+            background-color: #f2f2f2;
+            font-weight: normal;
+            border-bottom: 1px solid #ddd;
+            color: #333;
+        }
+
+        .date-row th:first-child {
+            border-left: none;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e9e9e9;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2">Owner</th>
+                    <th rowspan="2" colspan="2">In process/Output Measure</th>
+                    <th rowspan="2">90-day Target</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                    <th>Sun</th>
+                </tr>
+                <tr class="date-row">
+                    <th id="mon-date"></th>
+                    <th id="tue-date"></th>
+                    <th id="wed-date"></th>
+                    <th id="thu-date"></th>
+                    <th id="fri-date"></th>
+                    <th id="sat-date"></th>
+                    <th id="sun-date"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="3">ML</td>
+                    <td rowspan="3">Safety</td>
+                    <td>Safety Trigger Score</td>
+                    <td><label>${safetyTarget}</label></td>
+                    <td>${safetyTriggerScore}</td>
+                    <td>${safetyTriggerScore}</td>
+                    <td>${safetyTriggerScore}</td>
+                    <td>${safetyTriggerScore}</td>
+                    <td>${safetyTriggerScore}</td>
+                    <td>${safetyTriggerScore}</td>
+                    <td>${safetyTriggerScore}</td>
+                </tr>
+                <tr>
+                    <td>Behavioral Observations</td>
+                    <td><label>${behavioralTarget}</label></td>
+                    <td>${behavioralObservations}</td>
+                    <td>${behavioralObservations}</td>
+                    <td>${behavioralObservations}</td>
+                    <td>${behavioralObservations}</td>
+                    <td>${behavioralObservations}</td>
+                    <td>${behavioralObservations}</td>
+                    <td>${behavioralObservations}</td>
+                </tr>
+                <tr>
+                    <td>Near Misses/unsafe Conditions</td>
+                    <td><label>${nearMissesTarget}</label></td>
+                    <td>${nearMisses}</td>
+                    <td>${nearMisses}</td>
+                    <td>${nearMisses}</td>
+                    <td>${nearMisses}</td>
+                    <td>${nearMisses}</td>
+                    <td>${nearMisses}</td>
+                    <td>${nearMisses}</td>
+                </tr>
+                <tr>
+                    <td rowspan="5">L</td>
+                    <td rowspan="5">Quality</td>
+                    <td>Quality Trigger Score</td>
+                    <td><label>${qualityTarget}</label></td>
+                    <td>${triggerScore}</td>
+                    <td>${triggerScore}</td>
+                    <td>${triggerScore}</td>
+                    <td>${triggerScore}</td>
+                    <td>${triggerScore}</td>
+                    <td>${triggerScore}</td>
+                    <td>${triggerScore}</td>
+                </tr>
+                <tr>
+                    <td>First Pass Yield(FPY)</td>
+                    <td><label>${FPYTarget}</label></td>
+                    <td>${FPY}</td>
+                    <td>${FPY}</td>
+                    <td>${FPY}</td>
+                    <td>${FPY}</td>
+                    <td>${FPY}</td>
+                    <td>${FPY}</td>
+                    <td>${FPY}</td>
+                </tr>
+                <tr>
+                    <td>(QA)</td>
+                    <td><label>${QATarget}</label></td>
+                    <td>${QA}</td>
+                    <td>${QA}</td>
+                    <td>${QA}</td>
+                    <td>${QA}</td>
+                    <td>${QA}</td>
+                    <td>${QA}</td>
+                    <td>${QA}</td>
+                </tr>
+                <tr>
+                    <td>Online Knitting Rejects</td>
+                    <td><label>${knittingRejectsTarget}</label></td>
+                    <td>${knittingRejects}</td>
+                    <td>${knittingRejects}</td>
+                    <td>${knittingRejects}</td>
+                    <td>${knittingRejects}</td>
+                    <td>${knittingRejects}</td>
+                    <td>${knittingRejects}</td>
+                    <td>${knittingRejects}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><label></label></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td rowspan="4">IL</td>
+                    <td rowspan="4">Centerlines</td>
+                    <td>Process CL-Completion</td>
+                    <td><label>${processCompletionTarget}</label></td>
+                    <td>${processCompletion}</td>
+                    <td>${processCompletion}</td>
+                    <td>${processCompletion}</td>
+                    <td>${processCompletion}</td>
+                    <td>${processCompletion}</td>
+                    <td>${processCompletion}</td>
+                    <td>${processCompletion}</td>
+                </tr>
+                <tr>
+                    <td>Mechanical CL-Completion</td>
+                    <td><label>${mechanicalCompletionTarget}</label></td>
+                    <td>${mechanicalCompletion}</td>
+                    <td>${mechanicalCompletion}</td>
+                    <td>${mechanicalCompletion}</td>
+                    <td>${mechanicalCompletion}</td>
+                    <td>${mechanicalCompletion}</td>
+                    <td>${mechanicalCompletion}</td>
+                    <td>${mechanicalCompletion}</td>
+                </tr>
+                <tr>
+                    <td>Process CL-Compliance OOL (#)</td>
+                    <td><label>${processComplianceTarget}</label></td>
+                    <td>${processCompliance}</td>
+                    <td>${processCompliance}</td>
+                    <td>${processCompliance}</td>
+                    <td>${processCompliance}</td>
+                    <td>${processCompliance}</td>
+                    <td>${processCompliance}</td>
+                </tr>
+                <tr>
+                    <td>Mechanical CL-Compliance OOL (#)</td>
+                    <td><label>${mechanicalComplianceTarget}</label></td>
+                    <td>${mechanicalCompliance}</td>
+                    <td>${mechanicalCompliance}</td>
+                    <td>${mechanicalCompliance}</td>
+                    <td>${mechanicalCompliance}</td>
+                    <td>${mechanicalCompliance}</td>
+                    <td>${mechanicalCompliance}</td>
+                    <td>${mechanicalCompliance}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>CIL</td>
+                    <td>Completion %</td>
+                    <td><label>${completionTarget}</label></td>
+                    <td>${completion}</td>
+                    <td>${completion}</td>
+                    <td>${completion}</td>
+                    <td>${completion}</td>
+                    <td>${completion}</td>
+                    <td>${completion}</td>
+                    <td>${completion}</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">John Doe</td>
+                    <td rowspan="2">DH</td>
+                    <td>Defects found</td>
+                    <td><label>${DFoundTarget}</label></td>
+                    <td>${DFound}</td>
+                    <td>${DFound}</td>
+                    <td>${DFound}</td>
+                    <td>${DFound}</td>
+                    <td>${DFound}</td>
+                    <td>${DFound}</td>
+                    <td>${DFound}</td>
+                </tr>
+                <tr>
+                    <td>Defects fixed</td>
+                    <td><label>${DFixedTarget}</label></td>
+                    <td>${DFixed}</td>
+                    <td>${DFixed}</td>
+                    <td>${DFixed}</td>
+                    <td>${DFixed}</td>
+                    <td>${DFixed}</td>
+                    <td>${DFixed}</td>
+                    <td>${DFixed}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>BDE</td>
+                    <td># of breakdowns</td>
+                    <td><label>${BDETarget}</label></td>
+                    <td>${BDE}</td>
+                    <td>${BDE}</td>
+                    <td>${BDE}</td>
+                    <td>${BDE}</td>
+                    <td>${BDE}</td>
+                    <td>${BDE}</td>
+                    <td>${BDE}</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">John Doe</td>
+                    <td rowspan="2">MP&S</td>
+                    <td>% PM's executed vs Plan</td>
+                    <td><label>${executedPlanTarget}</label></td>
+                    <td>${executedPlan}</td>
+                    <td>${executedPlan}</td>
+                    <td>${executedPlan}</td>
+                    <td>${executedPlan}</td>
+                    <td>${executedPlan}</td>
+                    <td>${executedPlan}</td>
+                    <td>${executedPlan}</td>
+                </tr>
+                <tr>
+                    <td># PM's created/Modified</td>
+                    <td><label>${createdModifiedTarget}</label></td>
+                    <td>${createdModified}</td>
+                    <td>${createdModified}</td>
+                    <td>${createdModified}</td>
+                    <td>${createdModified}</td>
+                    <td>${createdModified}</td>
+                    <td>${createdModified}</td>
+                    <td>${createdModified}</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">John Doe</td>
+                    <td rowspan="2">CO (Change Over)</td>
+                    <td>Planned vs Actual Variance</td>
+                    <td><label>${plannedActualTarget}</label></td>
+                    <td>${plannedActual}</td>
+                    <td>${plannedActual}</td>
+                    <td>${plannedActual}</td>
+                    <td>${plannedActual}</td>
+                    <td>${plannedActual}</td>
+                    <td>${plannedActual}</td>
+                    <td>${plannedActual}</td>
+                </tr>
+                <tr>
+                    <td>% of CO Critique Complete</td>
+                    <td><label>${critiqueCompleteTarget}</label></td>
+                    <td>${critiqueComplete}</td>
+                    <td>${critiqueComplete}</td>
+                    <td>${critiqueComplete}</td>
+                    <td>${critiqueComplete}</td>
+                    <td>${critiqueComplete}</td>
+                    <td>${critiqueComplete}</td>
+                    <td>${critiqueComplete}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Process Failures</td>
+                    <td># of Process Failures</td>
+                    <td><label>${processFailuresTarget}</label></td>
+                    <td>${processFailures}</td>
+                    <td>${processFailures}</td>
+                    <td>${processFailures}</td>
+                    <td>${processFailures}</td>
+                    <td>${processFailures}</td>
+                    <td>${processFailures}</td>
+                    <td>${processFailures}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Attainment %</td>
+                    <td>Knitting</td>
+                    <td><label>${KnittingTarget}</label></td>
+                    <td>${Knitting}</td>
+                    <td>${Knitting}</td>
+                    <td>${Knitting}</td>
+                    <td>${Knitting}</td>
+                    <td>${Knitting}</td>
+                    <td>${Knitting}</td>
+                    <td>${Knitting}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>OEE</td>
+                    <td>OEE% (Strategic OEE)</td>
+                    <td><label>${OEETarget}</label></td>
+                    <td>${OEE}</td>
+                    <td>${OEE}</td>
+                    <td>${OEE}</td>
+                    <td>${OEE}</td>
+                    <td>${OEE}</td>
+                    <td>${OEE}</td>
+                    <td>${OEE}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Total Short Stops</td>
+                    <td>Total # Short Stops in 24 hrs(time)</td>
+                    <td><label>${ShortStopsTarget}</label></td>
+                    <td>${ShortStops}</td>
+                    <td>${ShortStops}</td>
+                    <td>${ShortStops}</td>
+                    <td>${ShortStops}</td>
+                    <td>${ShortStops}</td>
+                    <td>${ShortStops}</td>
+                    <td>${ShortStops}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Total UPDT Stops</td>
+                    <td>Total # UPDT Stops in 24 hrs(time)</td>
+                    <td><label>${UPDTStopsTarget}</label></td>
+                    <td>${UPDTStops}</td>
+                    <td>${UPDTStops}</td>
+                    <td>${UPDTStops}</td>
+                    <td>${UPDTStops}</td>
+                    <td>${UPDTStops}</td>
+                    <td>${UPDTStops}</td>
+                    <td>${UPDTStops}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Total Downtime</td>
+                    <td>Total Cell(40 m/s) Downtime(min)</td>
+                    <td><label>${totalDowntimeTarget}</label></td>
+                    <td>${totalDowntime}</td>
+                    <td>${totalDowntime}</td>
+                    <td>${totalDowntime}</td>
+                    <td>${totalDowntime}</td>
+                    <td>${totalDowntime}</td>
+                    <td>${totalDowntime}</td>
+                    <td>${totalDowntime}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>MTBF</td>
+                    <td>MTBF of previous 24 hrs</td>
+                    <td><label>${MTBFTarget}</label></td>
+                    <td>${MTBF}</td>
+                    <td>${MTBF}</td>
+                    <td>${MTBF}</td>
+                    <td>${MTBF}</td>
+                    <td>${MTBF}</td>
+                    <td>${MTBF}</td>
+                    <td>${MTBF}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Throughput</td>
+                    <td>Net output in previous 24 hrs (pair)</td>
+                    <td><label>${throughputTarget}</label></td>
+                    <td>${throughput}</td>
+                    <td>${throughput}</td>
+                    <td>${throughput}</td>
+                    <td>${throughput}</td>
+                    <td>${throughput}</td>
+                    <td>${throughput}</td>
+                    <td>${throughput}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td>Rate Loss</td>
+                    <td>Rate Loss %</td>
+                    <td><label>${rateLossTarget}</label></td>
+                    <td>${rateLoss}</td>
+                    <td>${rateLoss}</td>
+                    <td>${rateLoss}</td>
+                    <td>${rateLoss}</td>
+                    <td>${rateLoss}</td>
+                    <td>${rateLoss}</td>
+                    <td>${rateLoss}</td>
+                </tr>
+                <tr>
+                    <td>John Doe</td>
+                    <td></td>
+                    <td>Daily action Completion</td>
+                    <td><label>${dailyActionTarget}</label></td>
+                    <td>${dailyAction}</td>
+                    <td>${dailyAction}</td>
+                    <td>${dailyAction}</td>
+                    <td>${dailyAction}</td>
+                    <td>${dailyAction}</td>
+                    <td>${dailyAction}</td>
+                    <td>${dailyAction}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        (function () {
+            var days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+            var today = new Date();
+            var monday = new Date(today);
+            monday.setDate(today.getDate() - (today.getDay() + 6) % 7);
+
+            for (var i = 0; i < 7; i++) {
+                var date = new Date(monday);
+                date.setDate(monday.getDate() + i);
+                var formattedDate = (date.getMonth() + 1) + '/' + date.getDate();
+                document.getElementById(days[i] + '-date').textContent = formattedDate;
+            }
+        })();
+    </script>
+</body>
+
+</html>
