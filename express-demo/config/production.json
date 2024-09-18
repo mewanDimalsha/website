@@ -1,0 +1,6 @@
+{
+    "name": "express-demo-prod",
+    "mail": {
+        "host": "smtp.mailtrap.io"
+    }
+}
